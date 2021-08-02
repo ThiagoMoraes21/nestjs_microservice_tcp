@@ -10,7 +10,7 @@ export class AppController {
 
     @MessagePattern('add')
     async accumulate(data: number[]) {
-        this.logger.log('Adding: ', data.toString());
+        this.logger.log('Adding: ' + data.toString());
         return this.mathSevice.accumulate(data);
     }
 }
