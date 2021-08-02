@@ -1,5 +1,5 @@
 import { Body, Controller, Logger, Post } from '@nestjs/common';
-import { MathService } from './math.service';
+import { MathService } from './math-microservice/math.service';
 
 @Controller()
 export class AppController {

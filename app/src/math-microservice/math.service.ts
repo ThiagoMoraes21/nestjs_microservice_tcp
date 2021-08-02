@@ -1,22 +1,16 @@
-import { ClientProxy, ClientProxyFactory, Transport } from "@nestjs/microservices";
+import { ClientProxy } from "@nestjs/microservices";
 import { Logger } from "@nestjs/common";
 import { Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
+import { MathMicroservice } from './connections/connection.service';
 
 @Injectable()
 export class MathService {
     private client: ClientProxy;
     private logger = new Logger('MathService');
 
-    constructor() {
-        this.client = ClientProxyFactory.create({
-            transport: Transport.TCP,
-            options: {
-                host: '127.0.0.1',
-                port: 8877,
-            }
-        });
-        this.logger.log('connected...');
+    constructor(private mathMicroservice: MathMicroservice) {
+        this.client = mathMicroservice.connect();
     }
 
     public accumulate(data: number[]): Observable<number> {
