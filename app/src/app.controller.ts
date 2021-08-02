@@ -1,5 +1,6 @@
-import { Body, Controller, Logger, Post } from '@nestjs/common';
+import { Controller, Logger } from '@nestjs/common';
 import { MathService } from './math.service';
+import { MessagePattern } from "@nestjs/microservices";
 
 @Controller()
 export class AppController {
@@ -7,8 +8,8 @@ export class AppController {
 
     constructor(private readonly mathSevice: MathService) { }
 
-    @Post('add')
-    async accumulate(@Body('data') data: number[]) {
+    @MessagePattern('add')
+    async accumulate(data: number[]) {
         this.logger.log('Adding: ', data.toString());
         return this.mathSevice.accumulate(data);
     }
